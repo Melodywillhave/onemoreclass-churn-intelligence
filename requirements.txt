@@ -3,6 +3,7 @@ httpx
 joblib
 jupyter
 matplotlib
+mlflow
 numpy
 pandas
 pyarrow

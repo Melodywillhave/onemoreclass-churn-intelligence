@@ -31,3 +31,8 @@ data/database/*.db
 
 # Model and generated artifacts
 artifacts/
+
+# MLflow local tracking and registry
+mlflow.db
+mlruns/
+mlartifacts/

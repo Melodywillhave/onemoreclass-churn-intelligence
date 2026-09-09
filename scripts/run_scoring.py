@@ -4,6 +4,7 @@ import joblib
 import pandas as pd
 
 from src.modeling.drivers import build_customer_driver_scores
+from src.modeling.model_registry import register_champion_model
 from src.modeling.risk import assign_risk_tiers
 from src.modeling.train import fit_hist_gradient_boosting
 
@@ -150,6 +151,16 @@ def main() -> None:
         model_path,
     )
 
+    model_version = register_champion_model(
+    model=model,
+    X_example=X_score,
+    training_rows=len(train_df),
+    scoring_snapshot=str(latest_snapshot.date()),
+    label_availability_cutoff=str(
+        label_availability_cutoff.date()
+    ),
+)
+
     print(
         f"Training rows: {len(train_df):,}"
     )
@@ -174,6 +185,14 @@ def main() -> None:
     print(
         "Label availability cutoff: "
         f"{label_availability_cutoff.date()}"
+    )
+    print(
+    "Registered MLflow model: "
+    f"churn-risk-model version {model_version}"
+    )
+    print(
+        "Assigned MLflow alias: "
+        "churn-risk-model@champion"
     )
 
 
